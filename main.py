@@ -1,5 +1,7 @@
 import pygame
 from game import Game
+
+
 pygame.init()
 
 
@@ -24,12 +26,23 @@ while running:
     # appliquer l'image du joueur
     screen.blit(game.player.image, game.player.rect)
 
+    # actualiser la barre de vie du joueur
+    game.player.update_health_bar(screen)
+
     # recupérer les projectiles du joueur
     for projectile in game.player.all_projectiles:
         projectile.move()
 
+    # recupérer les monstres
+    for monster in game.all_monsters:
+        monster.forward()
+        monster.update_health_bar(screen)
+
     # appliquer image projectile
     game.player.all_projectiles.draw(screen)
+
+    # appliquer images ennemis
+    game.all_monsters.draw(screen)
 
 
     # mettre a jour l'écran
