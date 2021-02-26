@@ -1,4 +1,6 @@
 import pygame
+from projectile import Projectile
+
 
 class Player(pygame.sprite.Sprite):
 
@@ -7,8 +9,18 @@ class Player(pygame.sprite.Sprite):
         self.health = 100
         self.max_health = 100
         self.attack = 10
-        self.velocity = 5
+        self.velocity = 2
+        self.all_projectiles = pygame.sprite.Group()
         self.image = pygame.image.load('assets/bitcoin.png')
         self.rect = self.image.get_rect()
         self.rect.x = 400
         self.rect.y = 550
+
+    def launch_eth(self):
+        self.all_projectiles.add(Projectile(self))
+
+    def move_right(self):
+        self.rect.x += self.velocity
+
+    def move_left(self):
+        self.rect.x -= self.velocity
